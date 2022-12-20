@@ -1,13 +1,83 @@
+html,
 body {
+  height: 100%;
+  width: 100%;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  background: linear-gradient(#242424 80%,#33AACC 120%);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+#main {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+ 
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+
+
+}
+
+.center {
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+ 
+
+}
+
+.gradient {
+  background: radial-gradient(#242424 80%,#33AACC 120%);
+}
+
+.gradient-home {
+  /* Group 2 */
+
+position: absolute;
+width: 390px;
+height: 884px;
+
+
+
+/* Rectangle 1 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 390px;
+height: 884px;
+
+background: #242424;
+border: 1px solid #000000;
+
+
+/* Rectangle 7 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 390px;
+height: 884px;
+
+background: linear-gradient(171deg, #33AACC -3.56%, rgba(36, 36, 36, 0) 36.17%);
+border: 1px solid #000000;
+
+
+/* Rectangle 6 */
+
+position: absolute;
+width: 390px;
+height: 297px;
+
+background: linear-gradient(350.66deg, #F500DD -131.54%, rgba(125, 115, 119, 0.163331) 52.02%, rgba(36, 36, 36, 0) 88.73%);
+
 }
