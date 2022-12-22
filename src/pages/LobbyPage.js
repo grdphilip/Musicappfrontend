@@ -1,33 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Typography, Box } from "@mui/material/";
+import { SocketContext } from "../context/socket";
+import { useRecoilValue } from "recoil";
+import { room as roomAtom } from "../recoil/atoms";
 
 export const LobbyPage = () => {
-  const [key, setKey] = useState("");
+  const socket = useContext(SocketContext);
+  const [message, setMessage] = useState("");
+  const [messageReceived, setMessageReceived] = useState("");
+  const room = useRecoilValue(roomAtom);
 
-  const getRoomKey = async () => {
-    const res = await fetch("http://localhost:3000/rooms/", {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    const data = await res.json();
-    setKey(data[21].key);
-
-    return data;
+  const sendMessage = () => {
+    socket.emit("send_message", { message, room });
   };
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setMessageReceived(data.message);
+    });
+  }, [socket]);
 
   return (
     <div className="center">
+      <input
+        placeholder="Message..."
+        onChange={(event) => {
+          setMessage(event.target.value);
+        }}
+      />
+      <button onClick={sendMessage}> Send Message</button>
       <Typography
         sx={{
           pt: 30,
           fontFamily: "Montserrat",
-          fontSize: 18,
+          fontSize: 60,
           color: "#55D3CC",
         }}
       >
-       Koden till rummet är: {key}
+        {messageReceived}
       </Typography>
     </div>
   );

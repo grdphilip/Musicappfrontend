@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext  } from "react";
 import {Typography,Box,Button} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
 import RingLoader from "react-spinners/RingLoader";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate} from "react-router-dom";
+import {SocketContext} from '../context/socket';
 
 
 const CreateQuizPage = () => {
+
+  const socket = useContext(SocketContext)
   const navigate = useNavigate("");
 
   const returnHome = () => {
@@ -43,7 +46,11 @@ const CreateQuizPage = () => {
   };
 
   const createRoom = async () => {
-    const res = await fetch("http://localhost:3000/rooms/", {
+    
+
+
+    /*
+    const res = await fetch(process.env.REACT_APP_BASE_URL + '/rooms', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -54,8 +61,13 @@ const CreateQuizPage = () => {
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
+      */ 
       navigate('../lobby')
   };
+
+  
+
+
 
   useEffect(() => {
     setLoading(true);
@@ -63,6 +75,7 @@ const CreateQuizPage = () => {
       setLoading(false);
     }, 3000);
   }, []);
+
 
   return (
     <div className="center">

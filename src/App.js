@@ -1,10 +1,14 @@
 import logo from "./logo.svg";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Typography } from "@mui/material";
+import { Typography, Zoom } from "@mui/material";
 import Homepage from "./pages/Homepage";
 import CreateQuizPage from "./pages/CreateQuizPage";
 import LobbyPage from "./pages/LobbyPage";
+import JoinRoom from "./pages/JoinRoom";
+import { SocketContext, socket } from "./context/socket";
+import {RecoilRoot} from 'recoil';
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -12,13 +16,18 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Homepage />}/>
-          <Route path="/create" element={<CreateQuizPage />}/>
-          <Route path="/lobby" element={<LobbyPage/>}/>
-        </Routes>
-      </BrowserRouter>
+      <RecoilRoot>
+      <SocketContext.Provider value={socket}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/create" element={<CreateQuizPage />} />
+            <Route path="/lobby" element={<LobbyPage />} />
+            <Route path="/join" element={<JoinRoom/>}/>
+          </Routes>
+        </BrowserRouter>
+      </SocketContext.Provider>
+      </RecoilRoot>
     </div>
   );
 }

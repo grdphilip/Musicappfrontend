@@ -29,7 +29,6 @@ const Homepage = () => {
 
   const handleJoinRoom = async () => {
     
-    
     const res = await fetch(process.env.REACT_APP_BASE_URL + '/rooms', {
       method: 'GET',
       headers: {
@@ -38,6 +37,7 @@ const Homepage = () => {
     });
     const data = await res.json()
     console.log(data)
+    navigate('./join')
     return data
     
   };
@@ -70,6 +70,13 @@ const Homepage = () => {
         sx={{ mt: 1.5, width: 250, height: 60, border: 3, borderRadius: 3 , color: "#55D3CC",}}
       >
         Create quiz
+      </Button>
+      <Button
+        variant="outlined"
+
+        sx={{ mt: 1.5, width: 250, height: 60, border: 3, borderRadius: 3 , color: "#3B8CD3",}}
+      >
+        Leaderboard
       </Button>
       <Box sx={{mt:12}}>
       <ScaleLoader color="#55D3CC" speedMultiplier="0.5"/>
