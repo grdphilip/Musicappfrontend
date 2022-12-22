@@ -29,7 +29,8 @@ const Homepage = () => {
 
   const handleJoinRoom = async () => {
     
-    const res = await fetch('http://localhost:3000/rooms/', {
+    
+    const res = await fetch(process.env.REACT_APP_BASE_URL + '/rooms', {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -38,6 +39,7 @@ const Homepage = () => {
     const data = await res.json()
     console.log(data)
     return data
+    
   };
   
 

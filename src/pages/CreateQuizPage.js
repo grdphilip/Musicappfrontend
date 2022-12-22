@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Typography,
-  Box,
-  Paper,
-  InputBase,
-  Button,
-  ButtonGroup,
-  Zoom,
-} from "@mui/material";
+import {Typography,Box,Button} from "@mui/material";
 import TextField from "@mui/material/TextField";
-import Input from "@mui/material/Input";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
 import RingLoader from "react-spinners/RingLoader";
 import { Navigate, useNavigate } from "react-router-dom";
-import { getStyleValue } from "@mui/system";
+
 
 const CreateQuizPage = () => {
   const navigate = useNavigate("");
@@ -63,6 +54,7 @@ const CreateQuizPage = () => {
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
+      navigate('../lobby')
   };
 
   useEffect(() => {
