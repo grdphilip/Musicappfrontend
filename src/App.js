@@ -7,6 +7,7 @@ import Homepage from "./pages/Homepage";
 import CreateQuizPage from "./pages/CreateQuizPage";
 import LobbyPage from "./pages/LobbyPage";
 import JoinRoom from "./pages/JoinRoom";
+import Game from "./pages/Game";
 import { SocketContext, socket } from "./context/socket";
 import {RecoilRoot} from 'recoil';
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/create" element={<CreateQuizPage />} />
             <Route path="/lobby" element={<LobbyPage />} />
             <Route path="/join" element={<JoinRoom/>}/>
+            <Route path="/game" element={<Game/>}/>
           </Routes>
         </BrowserRouter>
       </SocketContext.Provider>

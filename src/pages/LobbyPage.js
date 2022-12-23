@@ -6,14 +6,15 @@ import NavBar from "./NavBar";
 import { room as roomAtom, host as hostAtom } from "../recoil/atoms";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import ListContestants from "../components/ListContestans";
-import RefreshIcon from '@mui/icons-material/Refresh';
+import RefreshIcon from "@mui/icons-material/Refresh";
+import { useNavigate } from "react-router-dom";
 
 export const LobbyPage = () => {
   const socket = useContext(SocketContext);
   const [message, setMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
   const room = useRecoilValue(roomAtom);
-  const host = useRecoilValue(hostAtom);
+  const navigate = useNavigate()
 
   const sendMessage = () => {
     socket.emit("send_message", { message, room });
@@ -23,60 +24,67 @@ export const LobbyPage = () => {
     socket.emit("update_users", { room });
   };
 
+  const startGame = () => {
+    socket.emit("start_game", {room})
+    navigate(ç)
+  }
+
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageReceived(data.message);
-      console.log(messageReceived);
+    socket.on("game_started", (data) => {
+      navigate(data)
+      //navigate(data)
     });
   }, [socket]);
 
   return (
     <Box>
       <NavBar
-        leftIcon={<CloseOutlinedIcon sx={{ color: "#55D3CC" }} />}
+        leftIcon={<CloseOutlinedIcon onClick={() => console.log("hello")} sx={{ color: "#55D3CC" }} />}
       ></NavBar>
       <Box display={"flex"} justifyContent={"center"}>
         <div className="center">
           <Box>
             <Typography
-              sx={{ fontFamily: "Montserrat", fontSize: 20, color: "#55D3CC" }}
-            >
-              Pre game lobby
-            </Typography>
-            <input
-              placeholder="Message..."
-              onChange={(event) => {
-                setMessage(event.target.value);
-              }}
-            />
-            <button onClick={sendMessage}> Send Message</button>
-            <Typography
-              sx={{ fontFamily: "Montserrat", fontSize: 18, color: "#55D3CC" }}
-            >
-              {messageReceived}
-            </Typography>
-            <Typography
-              sx={{ fontFamily: "Montserrat", fontSize: 18, color: "#55D3CC" }}
+              sx={{ fontFamily: "Montserrat", fontSize: 18, color: "white" }}
             >
               Start the game when everyone has joined
             </Typography>
 
             <Typography
-              sx={{ fontFamily: "Montserrat", fontSize: 18, color: "#55D3CC" }}
+              sx={{
+                mt: 2,
+                fontFamily: "Montserrat",
+                fontSize: 18,
+                color: "#55D3CC",
+              }}
             >
               Users connected:
             </Typography>
-            <IconButton
-                aria-label="comment"
-                onClick={updateRoom}
-                sx={{ mr: 2, color: "#55D3CC" }}
-              >
-                <RefreshIcon/>
-              </IconButton>
             <ListContestants></ListContestants>
-            
             <Button
               variant="outlined"
+              onClick={updateRoom}
+              sx={{
+                mt: 2,
+                width: 150,
+                height: 50,
+                border: 2,
+                borderRadius: 3,
+                color: "white",
+              }}
+            >
+              Update
+              <IconButton
+                aria-label="comment"
+                sx={{color: "white" }}
+              >
+                <RefreshIcon />
+              </IconButton>
+            </Button>
+
+            <Button
+              variant="outlined"
+              onClick={startGame}
               sx={{
                 mt: 2,
                 width: 150,
