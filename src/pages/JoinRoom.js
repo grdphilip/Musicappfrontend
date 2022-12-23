@@ -16,8 +16,8 @@ const JoinRoom = () => {
 
   const joinRoom = () => {
     if (room !== "") {
-      socket.emit("join_room", room);
-      console.log(room);
+      socket.emit("join_room", room, playerName);
+      console.log(room, playerName);
       navigate("../lobby");
     }
   };
@@ -63,14 +63,14 @@ const JoinRoom = () => {
         onClick={() => navigate("../")}
         sx={{ mt: 5, mr: 2, color: "#A74C9E", border: 2 }}
       >
-        Tillbaka
+        Go back
       </Button>
       <Button
         variant="outlined"
         onClick={joinRoom}
         sx={{ mt: 5, border: 2, color: "#55D3CC" }}
       >
-        Gå vidare
+        Join room
       </Button>
     </div>
   );

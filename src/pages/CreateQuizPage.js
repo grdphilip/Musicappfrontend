@@ -38,12 +38,10 @@ const CreateQuizPage = () => {
   };
 
   const handleQuizChange = (e) => {
-    setQuiz(e.target.value)
-
+    setQuiz(e.target.value);
   };
 
   const createRoom = async () => {
-
     socket.emit("join_room", room);
 
     const res = await fetch(process.env.REACT_APP_BASE_URL + "/rooms", {
@@ -57,10 +55,7 @@ const CreateQuizPage = () => {
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
-      navigate('../lobby')
-
-
-
+    navigate("../lobby");
   };
 
   useEffect(() => {
@@ -71,20 +66,27 @@ const CreateQuizPage = () => {
   }, []);
 
   return (
-    <div className="center">
+    <div>
       {loading ? (
-        <RingLoader color="#55D3CC" loading={loading}></RingLoader>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="100vh"
+        >
+          <RingLoader color="#55D3CC" loading={loading}></RingLoader>
+        </Box>
       ) : (
-        <Box sx={{ mb: 40, width: "100%", height: "100%" }}>
+        <Box sx={{ width: "100%", height: "100%" }}>
           <Typography
             sx={{
               pt: 30,
               fontFamily: "Montserrat",
-              fontSize: 35,
+              fontSize: 30,
               color: "#55D3CC",
             }}
           >
-            Kom igång här!
+            Create room here
           </Typography>
           <OutlinedInput
             sx={{
@@ -93,7 +95,7 @@ const CreateQuizPage = () => {
               width: 300,
               borderRadius: 2,
             }}
-            placeholder="Lägg till hostens namn"
+            placeholder="Host name"
             value={host}
             onChange={handleHostChange}
           />
@@ -105,7 +107,7 @@ const CreateQuizPage = () => {
               width: 300,
               borderRadius: 2,
             }}
-            placeholder="Ange rummets nyckel"
+            placeholder="Room name"
             value={room}
             onChange={handleKeyChange}
           />
@@ -136,14 +138,14 @@ const CreateQuizPage = () => {
             onClick={() => navigate("../")}
             sx={{ mt: 5, mr: 2, color: "#A74C9E", border: 2 }}
           >
-            Tillbaka
+            Go back
           </Button>
           <Button
             variant="outlined"
             onClick={createRoom}
             sx={{ mt: 5, border: 2, color: "#55D3CC" }}
           >
-            Gå vidare
+            Create game
           </Button>
         </Box>
       )}
