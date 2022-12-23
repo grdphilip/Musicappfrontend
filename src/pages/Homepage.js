@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import ScaleLoader from "react-spinners/ScaleLoader"
 
 
+
 const Homepage = () => {
   const navigate = useNavigate();
   

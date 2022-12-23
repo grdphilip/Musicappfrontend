@@ -1,21 +1,19 @@
-import React, { useState, useEffect, useContext  } from "react";
-import {Typography,Box,Button} from "@mui/material";
+import React, { useState, useEffect, useContext } from "react";
+import { Typography, Box, Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
 import RingLoader from "react-spinners/RingLoader";
-import { Navigate, useNavigate} from "react-router-dom";
-import {SocketContext} from '../context/socket';
-
+import { Navigate, useNavigate } from "react-router-dom";
+import { SocketContext } from "../context/socket";
+import { useRecoilState } from "recoil";
+import { room as roomAtom, host as hostAtom } from "../recoil/atoms";
 
 const CreateQuizPage = () => {
-
-  const socket = useContext(SocketContext)
+  const socket = useContext(SocketContext);
   const navigate = useNavigate("");
-
-  const returnHome = () => {
-    navigate("../");
-  };
+  const [room, setRoom] = useRecoilState(roomAtom);
+  const [host, setHost] = useRecoilState(hostAtom);
 
   const quizzes = [
     {
@@ -29,12 +27,10 @@ const CreateQuizPage = () => {
   ];
 
   const [loading, setLoading] = useState(true);
-  const [host, setHost] = useState("");
-  const [key, setKey] = useState("");
   const [quiz, setQuiz] = useState("");
 
   const handleKeyChange = (e) => {
-    setKey(e.target.value);
+    setRoom(e.target.value);
   };
 
   const handleHostChange = (e) => {
@@ -42,40 +38,37 @@ const CreateQuizPage = () => {
   };
 
   const handleQuizChange = (e) => {
-    setQuiz(quizzes[0].value);
+    setQuiz(e.target.value)
+
   };
 
   const createRoom = async () => {
-    
 
+    socket.emit("join_room", room);
 
-    /*
-    const res = await fetch(process.env.REACT_APP_BASE_URL + '/rooms', {
+    const res = await fetch(process.env.REACT_APP_BASE_URL + "/rooms", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         host: host,
-        key: key,
+        key: room,
         genre: quiz,
       }),
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
-      */ 
       navigate('../lobby')
+
+
+
   };
-
-  
-
-
 
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2000);
   }, []);
-
 
   return (
     <div className="center">
@@ -113,7 +106,7 @@ const CreateQuizPage = () => {
               borderRadius: 2,
             }}
             placeholder="Ange rummets nyckel"
-            value={key}
+            value={room}
             onChange={handleKeyChange}
           />
           <TextField
@@ -140,7 +133,7 @@ const CreateQuizPage = () => {
 
           <Button
             variant="outlined"
-            onClick={returnHome}
+            onClick={() => navigate("../")}
             sx={{ mt: 5, mr: 2, color: "#A74C9E", border: 2 }}
           >
             Tillbaka

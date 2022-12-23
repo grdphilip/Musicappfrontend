@@ -2,13 +2,16 @@ import React, { useEffect, useState, useContext } from "react";
 import { Button, Typography, Box } from "@mui/material/";
 import { SocketContext } from "../context/socket";
 import { useRecoilValue } from "recoil";
-import { room as roomAtom } from "../recoil/atoms";
+import NavBar from "./NavBar";
+import { room as roomAtom, host as hostAtom } from "../recoil/atoms";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 export const LobbyPage = () => {
   const socket = useContext(SocketContext);
   const [message, setMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
   const room = useRecoilValue(roomAtom);
+  const host = useRecoilValue(hostAtom);
 
   const sendMessage = () => {
     socket.emit("send_message", { message, room });
@@ -21,7 +24,16 @@ export const LobbyPage = () => {
   }, [socket]);
 
   return (
-    <div className="center">
+    <Box >
+      <NavBar leftIcon={<CloseOutlinedIcon sx={{color: "#55D3CC" }} />}></NavBar>
+      <Box display={"flex"} justifyContent={"center"}>
+        <div className= "center">
+
+      <Typography
+        sx={{ fontFamily: "Montserrat", fontSize: 20, color: "#55D3CC" }}
+      >
+        Pre game lobby
+      </Typography>
       <input
         placeholder="Message..."
         onChange={(event) => {
@@ -30,16 +42,28 @@ export const LobbyPage = () => {
       />
       <button onClick={sendMessage}> Send Message</button>
       <Typography
-        sx={{
-          pt: 30,
-          fontFamily: "Montserrat",
-          fontSize: 60,
-          color: "#55D3CC",
-        }}
+        sx={{ fontFamily: "Montserrat", fontSize: 20, color: "#55D3CC" }}
       >
         {messageReceived}
       </Typography>
-    </div>
+      <Typography
+        sx={{ fontFamily: "Montserrat", fontSize: 20, color: "#55D3CC" }}
+      >
+        {host}
+      </Typography>
+      <Typography
+        sx={{ fontFamily: "Montserrat", fontSize: 20, color: "#55D3CC" }}
+      >
+        {room}
+      </Typography>
+      <Typography
+        sx={{ fontFamily: "Montserrat", fontSize: 20, color: "#55D3CC" }}
+      >
+        Users connected:
+      </Typography>
+      </div>
+      </Box>
+    </Box>
   );
 };
 export default LobbyPage;
