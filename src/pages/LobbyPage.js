@@ -26,7 +26,7 @@ export const LobbyPage = () => {
 
   const startGame = () => {
     socket.emit("start_game", {room})
-    navigate(ç)
+         navigate("../game")
   }
 
   useEffect(() => {
@@ -38,9 +38,6 @@ export const LobbyPage = () => {
 
   return (
     <Box>
-      <NavBar
-        leftIcon={<CloseOutlinedIcon onClick={() => console.log("hello")} sx={{ color: "#55D3CC" }} />}
-      ></NavBar>
       <Box display={"flex"} justifyContent={"center"}>
         <div className="center">
           <Box>

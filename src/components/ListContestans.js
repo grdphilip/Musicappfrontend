@@ -5,7 +5,7 @@ import ListItemText from "@mui/material/ListItemText";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import IconButton from "@mui/material/IconButton";
 import { SocketContext } from "../context/socket";
-import { room as roomAtom, host as hostAtom } from "../recoil/atoms";
+import { room as roomAtom } from "../recoil/atoms";
 import { useRecoilValue } from "recoil";
 
 

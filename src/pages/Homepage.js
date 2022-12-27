@@ -84,6 +84,7 @@ const Homepage = () => {
       </Button>
       <Button
         variant="outlined"
+        onClick={() => navigate('./overview')}
         sx={{
           mt: 1.5,
           width: 250,
@@ -93,7 +94,7 @@ const Homepage = () => {
           color: "#3B8CD3",
         }}
       >
-        Leaderboard
+        Overview
       </Button>
       <Box sx={{ mt: 12 }}>
         <ScaleLoader color="#55D3CC" speedMultiplier="0.5" />

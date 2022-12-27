@@ -10,6 +10,7 @@ import JoinRoom from "./pages/JoinRoom";
 import Game from "./pages/Game";
 import { SocketContext, socket } from "./context/socket";
 import {RecoilRoot} from 'recoil';
+import OverViewPage from "./pages/OverViewPage";
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -26,6 +27,7 @@ function App() {
             <Route path="/lobby" element={<LobbyPage />} />
             <Route path="/join" element={<JoinRoom/>}/>
             <Route path="/game" element={<Game/>}/>
+            <Route path="/overview" element={<OverViewPage/>}/>
           </Routes>
         </BrowserRouter>
       </SocketContext.Provider>
