@@ -9,6 +9,8 @@ import { room as roomAtom } from "../recoil/atoms";
 import { useRecoilValue } from "recoil";
 
 
+
+
 const ListContestants = () => {
   const socket = useContext(SocketContext);
   const room = useRecoilValue(roomAtom);
@@ -29,8 +31,7 @@ const ListContestants = () => {
           secondaryAction={
             <IconButton
               aria-label="comment"
-              sx={{ mr: 2, color: "#55D3CC" }}
-            >
+              sx={{ mr: 2, color: "#55D3CC" }}>
               <VerifiedUserIcon />
             </IconButton>
           }

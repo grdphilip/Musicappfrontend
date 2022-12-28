@@ -9,29 +9,26 @@ import ListContestants from "../components/ListContestans";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { useNavigate } from "react-router-dom";
 
-export const LobbyPage = () => {
-  const socket = useContext(SocketContext);
-  const [message, setMessage] = useState("");
-  const [messageReceived, setMessageReceived] = useState("");
-  const room = useRecoilValue(roomAtom);
-  const navigate = useNavigate()
 
-  const sendMessage = () => {
-    socket.emit("send_message", { message, room });
-  };
+export const LobbyPage = () => {
+  
+  const socket = useContext(SocketContext);
+  const room = useRecoilValue(roomAtom);
+  const host = useRecoilValue(hostAtom);
+  const navigate = useNavigate();
 
   const updateRoom = () => {
     socket.emit("update_users", { room });
   };
 
   const startGame = () => {
-    socket.emit("start_game", {room})
-         navigate("../game")
-  }
+    socket.emit("start_game", { room });
+    navigate("../game");
+  };
 
   useEffect(() => {
     socket.on("game_started", (data) => {
-      navigate(data)
+      navigate(data);
       //navigate(data)
     });
   }, [socket]);
@@ -41,11 +38,24 @@ export const LobbyPage = () => {
       <Box display={"flex"} justifyContent={"center"}>
         <div className="center">
           <Box>
+          {host.length !== 0 ? (
+            <>
             <Typography
               sx={{ fontFamily: "Montserrat", fontSize: 18, color: "white" }}
             >
               Start the game when everyone has joined
             </Typography>
+            </>
+          ) : (
+            <>
+
+            <Typography
+              sx={{ fontFamily: "Montserrat", fontSize: 18, color: "white" }}
+            >
+             Game is about to start
+            </Typography>
+            </>
+          )}
 
             <Typography
               sx={{
@@ -71,28 +81,29 @@ export const LobbyPage = () => {
               }}
             >
               Update
-              <IconButton
-                aria-label="comment"
-                sx={{color: "white" }}
-              >
+              <IconButton aria-label="comment" sx={{ color: "white" }}>
                 <RefreshIcon />
               </IconButton>
             </Button>
 
-            <Button
-              variant="outlined"
-              onClick={startGame}
-              sx={{
-                mt: 2,
-                width: 150,
-                height: 50,
-                border: 2,
-                borderRadius: 3,
-                color: "#55D3CC",
-              }}
-            >
-              Start game
-            </Button>
+            {host.length !== 0 && (
+              <>
+              <Button
+                variant="outlined"
+                onClick={startGame}
+                sx={{
+                  mt: 2,
+                  width: 150,
+                  height: 50,
+                  border: 2,
+                  borderRadius: 3,
+                  color: "#55D3CC",
+                }}
+              >
+                Start game
+              </Button>
+              </>
+            )}
           </Box>
         </div>
       </Box>

@@ -15,6 +15,7 @@ const CreateQuizPage = () => {
   const [room, setRoom] = useRecoilState(roomAtom);
   const [host, setHost] = useRecoilState(hostAtom);
 
+
   const quizzes = [
     {
       value: "OGQuiz",
@@ -42,7 +43,7 @@ const CreateQuizPage = () => {
   };
 
   const createRoom = async () => {
-    socket.emit("join_room", room);
+    socket.emit("join_room", room, host);
 
     const res = await fetch(process.env.REACT_APP_BASE_URL + "/rooms", {
       method: "POST",
